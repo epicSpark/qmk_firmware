@@ -10,10 +10,12 @@
     #define RGB_MATRIX_KEYPRESSES 
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // Heatmap, Rain
     #define RGB_DISABLE_TIMEOUT 1200000
-
     #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
+    #define RGB_MATRIX_STARTUP_HUE 106
+    #define RGB_MATRIX_STARTUP_SAT 255
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
 
 // Soon we need to ENABLE modes by DEFAULT soon as per: https://github.com/qmk/qmk_firmware/pull/13758 Thanks @noroadsleft
     //  #define DISABLE_RGB_MATRIX_SOLID_COLOR               // BUILT IN (MAPPED!) Static single color.
@@ -33,7 +35,7 @@
     //  #define DISABLE_RGB_MATRIX_CYCLE_OUT_IN              // Rainbow circles coming to center.
      #define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL         // Two Rainbow circles coming to 1/3 and 2/3 points.
     //  #define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON    // Full gradent Chevron shapped scrolling left to right
-     #define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL            // BUILT IN (MAPPED!) - Consider disabling this - my poor eyes.
+    //  #define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL            // BUILT IN (MAPPED!) - Consider disabling this - my poor eyes.
     //  #define DISABLE_RGB_MATRIX_CYCLE_SPIRAL              // Full gradient spinning spiral around center of keyboard
      #define DISABLE_RGB_MATRIX_DUAL_BEACON               // Two rainbows spinning around keyboards
      #define DISABLE_RGB_MATRIX_RAINBOW_BEACON            // Similar to above.

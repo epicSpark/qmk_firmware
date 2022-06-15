@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "rgb_matrix_ledmaps.h"
 
-#define RGB_BRIGHT_PINK 245, 37, 60
-#define HSV_BRIGHT_PINK 250, 84.9, 96.1
-
 enum gmmk_pro_layers {
     _QWERTY,
     _GAME,
@@ -39,6 +36,14 @@ enum custom_keycodes {
   KC_00 = SAFE_RANGE,
   KC_WINLCK,    //Toggles Win key on and off
   LED_REACT,
+  LED_RED,
+  LED_ORANGE,
+  LED_YELLOW,
+  LED_GREEN,
+  LED_SPRINGGREEN,
+  LED_AZURE,
+  LED_BLUE,
+  LED_MAGENTA
 };
 
 typedef enum {
@@ -110,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FN1] = LAYOUT(
         _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_CALC,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_TOG,
+        _______, LED_RED, LED_ORANGE, LED_YELLOW, LED_GREEN, LED_SPRINGGREEN, LED_AZURE, LED_BLUE, LED_MAGENTA, _______, _______, _______, _______, _______,          RGB_TOG,
         _______, _______, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_NLCK, _______, _______, RESET,            KC_HOME,
         KC_CAPS, _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_END,
         _______,          RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, LED_REACT, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD, KC_PGDOWN,
@@ -137,8 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// #ifdef ENCODER_ENABLE       // Encoder Functionality
-
+#ifdef ENCODER_ENABLE       // Encoder Functionality
     bool encoder_update_user(uint8_t index, bool clockwise) {
         uint8_t mods_state = get_mods();
         if ( clockwise ) {
@@ -177,13 +181,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         return true;
 
     }
-// #endif
+#endif
 
 void keyboard_post_init_user(void){
     rgb_matrix_enable_noeeprom();
-    rgb_matrix_sethsv_noeeprom(HSV_SPRINGGREEN);
-    // rgb_matrix_set_color_all(RGB_SPRINGGREEN);
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
+    // rgb_matrix_sethsv_noeeprom(HSV_SPRINGGREEN);
+    // rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
 }
 
 bool _isWinKeyDisabled = false;
@@ -209,9 +212,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else  { unregister_code16(keycode); }
             break;
-
+        // I could've made a function for this but oh well :)
         case LED_REACT:
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
+            rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
+            break;
+        case LED_RED:
+            rgb_matrix_sethsv_noeeprom(0, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            break;
+        case LED_ORANGE:
+            rgb_matrix_sethsv_noeeprom(28, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            break;
+        case LED_YELLOW:
+            rgb_matrix_sethsv_noeeprom(43, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            break;
+        case LED_GREEN:
+            rgb_matrix_sethsv_noeeprom(85, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            break;
+        case LED_SPRINGGREEN:
+            rgb_matrix_sethsv_noeeprom(106, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            break;
+        case LED_AZURE:
+            rgb_matrix_sethsv_noeeprom(132, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            break;
+        case LED_BLUE:
+            rgb_matrix_sethsv_noeeprom(170, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            break;
+        case LED_MAGENTA:
+            rgb_matrix_sethsv_noeeprom(213, rgb_matrix_get_sat(), rgb_matrix_get_val());
             break;
     }
     return true;
@@ -345,7 +372,7 @@ const ledmap PROGMEM ledmaps[] = {
     ),
     [_FN1] = RGB_MATRIX_LAYOUT_LEDMAP(
           SPRING,    ______, ______, ______, ______, SPRING, ______, ______, ______, ______, ______, ______, ______, ______, MAGENT,         MAGENT,    MAGENT,
-          SPRING,    ______, ______, ______, ______, SPRING, ______, ______, ______, ______, ______, ______, ______, ______, ______,         MAGENT,    MAGENT,
+          SPRING,    ______, RED, ORANGE, YELLOW, GREEN, SPRING, AZURE, BLUE, MAGENT, ______, ______, ______, ______, ______,         MAGENT,    MAGENT,
           SPRING,    ______, ______, ______, ______, ______, ______, ______, SPRING, SPRING, SPRING, ______, ______, ______, ______,         MAGENT,    MAGENT,
           SPRING,    ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______,         ______,    ______,
           SPRING,    ______,         ______, ______, ______, ______, ______, SPRING, ______, ______, ______, ______,         ______, ______, ______,    ______,
